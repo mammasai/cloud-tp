@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import sqlite3
+import os
 from flask_cors import CORS
 from pymongo import MongoClient
 
@@ -12,7 +13,8 @@ cursor = conn.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)")
 
 # MongoDB
-client = MongoClient("mongodb+srv://mammasai4_db_user:naYXo1MHkuLYUQTF@cluster0.omjynio.mongodb.net/testdb?retryWrites=true&w=majority")
+client = MongoClient(os.environ.get("MONGO_URI"))
+#client = MongoClient("mongodb+srv://mammasai4_db_user:naYXo1MHkuLYUQTF@cluster0.omjynio.mongodb.net/testdb?retryWrites=true&w=majority")
 db = client["testdb"]
 collection = db["users"]
 
